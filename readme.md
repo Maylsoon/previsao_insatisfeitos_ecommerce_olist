@@ -19,7 +19,7 @@ O projeto foi estruturado seguindo as melhores práticas em 3 etapas independent
 ## 🧠 3. Engenharia de Atributos (Status do 5º Dia)
 Para simular perfeitamente o ambiente de produção, eliminamos dados do futuro absoluto (como a data de entrega final). No entanto, aproveitando a janela operacional do 5º dia, alimentamos o modelo com variáveis de alto impacto:
 
-![importancia_variaveis](imagens/feature_importances.png)
+![importancia das variaveis](imagens/feature_importances.png)
 
 *   **Dias até a Postagem:** Cálculo dos dias em que o vendedor postou o produto vs dia da compra.
 *   **Logística Geopolítica (`mesmo_estado`):** Mapeamento se o trajeto do pacote exige cruzamento interestadual de malhas rodoviárias ou se flui no principal *hub* logístico do país.
@@ -33,17 +33,20 @@ Para simular perfeitamente o ambiente de produção, eliminamos dados do futuro 
 
 Avaliamos os modelos utilizando a métrica **ROC-AUC** para estabilidade global e a **PR-AUC (Precision-Recall)** devido ao forte desbalanceamento natural da base (apenas 21% de insatisfeitos na base final tratada). 
 
-|    | MODELOS           |   ROC_AUC |   PR_AUC |   PRECISION |   RECALL |
-|---:|:------------------|----------:|---------:|------------:|---------:|
-|  0 | Árvore de decisão |      0.66 |     0.37 |        0.32 |     0.55 |
-|  1 | Random Forest     |      0.69 |     0.43 |        0.34 |     0.58 |
-|  2 | Xgboost           |      0.86 |     0.66 |        0.50 |     0.74 |
 
-![duelo_modelos](imagens/duelo_modelos.png)
+| Modelo | ROC-AUC | PR-AUC | Precisão | Recall |
+| :--- | :---: | :---: | :---: | :---: |
+| **Árvore de Decisão** | 0.66 | 0.37 | 0.32 | 0.55 |
+| **Random Forest** | 0.69 | 0.43 | 0.34 | 0.58 |
+| **XGBoost (Campeão)** | 0.86 | 0.66 | 0.50 | 0.74 |
+
+
+
+![duelo de modelos](imagens/duelo_modelos.png)
 
 Após o tuning e análise da performance do modelo campeão nos dados de validação antes do teste final, o **XGBoost Otimizado** atingiu uma PR-AUC estável de **0.36** na base de validação, ficando muito acima do "chão" aleatório de **0.21**.
 
-![curva_aprendizagem](imagens/curva_aprendizagem.png)
+![curva de aprendizagem](imagens/curva_aprendizagem.png)
 
 o modelo não apresentou que precise de mais dados para melhorar, pois a linha de validação não continua subindo no final do gráfico e o modelo não está sofrendo overfitting, pois as linhas estão próximas (com uma distância menor que 5%), portanto o modelo apresentou estabilidade.
 
@@ -56,18 +59,21 @@ tecnicamente, abriu-se mão do equilíbrio perfeito para garantir que a platafor
 
 Unindo isso a distribuição equilibrada da importância das colunas (eliminando a dominância preguiçosa de variáveis passadas), o modelo **XGBoost** atingiu uma PR-AUC estável de **0.35** no teste blindado, ficando muito acima do "chão" aleatório de **0.21** e um excelente recall de **83%**.
 
-| Métrica                    | Desempenho Oficial na Base de Teste Blindada |
-| **Recall (Sensibilidade)** | **83%**                                      |
-| **Precisão**               | **25%**                                      |
-| **F1-Score**               | **0.38**                                     |
-| **ROC-AUC Final**          | **0.65**                                     |
 
-![distribuicao_probabilidades](imagens/distribuicao_probabilidades.png)
+| Métrica | Desempenho na Base de Teste Blindada |
+| :--- | :---: |
+| **Recall (Sensibilidade)** | **83%** |
+| **Precisão** | **25%** |
+| **F1-Score** | **0.38** |
+| **ROC-AUC Final** | **0.65** |
+
+
+![distribuicao das probabilidades](imagens/distribuicao_probabilidades.png)
 
 ### 🧩 Análise de Impacto Operacional (Matriz de Confusão)
 O corte em 0.40 posicionou o modelo de forma cirúrgica na descida da distribuição de probabilidades dos clientes satisfeitos (montanha verde), assumindo uma taxa controlada de falsos positivos para maximizar a captura da classe detratora (montanha vermelha).
 
-![matriz_confusao](imagens/matriz_confusao.png)
+![matriz de confusao](imagens/matriz_confusao.png)
 
 ```text
 Matriz de Confusão (Teste Blindado):
