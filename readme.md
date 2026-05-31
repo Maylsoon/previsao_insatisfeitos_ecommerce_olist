@@ -80,7 +80,7 @@ Matriz de Confusão (Teste Blindado):
 [[ 4920  9991 ] -> [Clientes Satisfeitos Corretos | Alarmes Falsos]
  [  670  3315 ]] -> [Crises Perdidas          | Clientes Detratores Salvos]
 ```
-
+git
 
 **O Retorno Financeiro (ROI):** 
 O modelo mostrou sensibilidade e permitiu interceptar **3.315 clientes insatisfeitos antes mesmo de eles receberem o produto**. Para uma estratégia de CRM baseada em canais automatizados de baixíssimo custo marginal (como réguas de e-mail marketing prioritárias, notificações push customizadas ou automações de WhatsApp disparadas via API), o custo de enviar os 13.306 alertas totais é insignificante. O projeto se paga integralmente ao converter potenciais reclamações públicas e cancelamentos em um canal direto de acolhimento e suporte preventivo, blindando a reputação da plataforma.
