@@ -19,7 +19,7 @@ O projeto foi estruturado seguindo as melhores práticas em 3 etapas independent
 ## 🧠 3. Engenharia de Atributos (Status do 5º Dia)
 Para simular perfeitamente o ambiente de produção, eliminamos dados do futuro absoluto (como a data de entrega final). No entanto, aproveitando a janela operacional do 5º dia, alimentamos o modelo com variáveis de alto impacto:
 
-![importancia_variaveis]('imagens/feature_importances.png')
+![importancia_variaveis](imagens/feature_importances.png)
 
 *   **Dias até a Postagem:** Cálculo dos dias em que o vendedor postou o produto vs dia da compra.
 *   **Logística Geopolítica (`mesmo_estado`):** Mapeamento se o trajeto do pacote exige cruzamento interestadual de malhas rodoviárias ou se flui no principal *hub* logístico do país.
@@ -39,11 +39,11 @@ Avaliamos os modelos utilizando a métrica **ROC-AUC** para estabilidade global 
 |  1 | Random Forest     |      0.69 |     0.43 |        0.34 |     0.58 |
 |  2 | Xgboost           |      0.86 |     0.66 |        0.50 |     0.74 |
 
-![duelo_modelos]('imagens/duelo_modelos.png')
+![duelo_modelos](imagens/duelo_modelos.png)
 
 Após o tuning e análise da performance do modelo campeão nos dados de validação antes do teste final, o **XGBoost Otimizado** atingiu uma PR-AUC estável de **0.36** na base de validação, ficando muito acima do "chão" aleatório de **0.21**.
 
-![curva_aprendizagem]('imagens/curva_aprendizagem.png')
+![curva_aprendizagem](imagens/curva_aprendizagem.png)
 
 o modelo não apresentou que precise de mais dados para melhorar, pois a linha de validação não continua subindo no final do gráfico e o modelo não está sofrendo overfitting, pois as linhas estão próximas (com uma distância menor que 5%), portanto o modelo apresentou estabilidade.
 
@@ -51,7 +51,6 @@ o modelo não apresentou que precise de mais dados para melhorar, pois a linha d
 ### ⚙️ Calibração de Decisão Comercial (Threshold Tuning)
 O modelo padrão (corte 0.50) ignorava a classe rara. Calibrou-se estrategicamente o ponto de corte das probabilidades puras do XGBoost para **0.40** para priorizar o gerenciamento preventivo de crise.
 
-![distribuicao_probabilidades](imagens/distribuicao_probabilidades.png)
 
 tecnicamente, abriu-se mão do equilíbrio perfeito para garantir que a plataforma interceptasse os insatisfeitos no início da zona de incerteza, aceitando que alguns clientes satisfeitos também fossem interceptados para blindar a imagem da empresa.
 
@@ -68,7 +67,7 @@ Unindo isso a distribuição equilibrada da importância das colunas (eliminando
 ### 🧩 Análise de Impacto Operacional (Matriz de Confusão)
 O corte em 0.40 posicionou o modelo de forma cirúrgica na descida da distribuição de probabilidades dos clientes satisfeitos (montanha verde), assumindo uma taxa controlada de falsos positivos para maximizar a captura da classe detratora (montanha vermelha).
 
-![matriz_confusao]('imagens/matriz_confusao.png)
+![matriz_confusao](imagens/matriz_confusao.png)
 
 ```text
 Matriz de Confusão (Teste Blindado):
