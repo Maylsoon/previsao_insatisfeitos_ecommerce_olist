@@ -73,14 +73,17 @@ Unindo isso a distribuição equilibrada da importância das colunas (eliminando
 ### 🧩 Análise de Impacto Operacional (Matriz de Confusão)
 O corte em 0.40 posicionou o modelo de forma cirúrgica na descida da distribuição de probabilidades dos clientes satisfeitos (montanha verde), assumindo uma taxa controlada de falsos positivos para maximizar a captura da classe detratora (montanha vermelha).
 
+Matriz de Confusão (Teste):
+
 ![matriz de confusao](imagens/matriz_confusao.png)
 
-```text
-Matriz de Confusão (Teste Blindado):
-[[ 4920  9991 ] -> [Clientes Satisfeitos Corretos | Alarmes Falsos]
- [  670  3315 ]] -> [Crises Perdidas          | Clientes Detratores Salvos]
-```
-git
+| quantidade | descricao |
+| :---: | :--- |
+| 4920 | Clientes Satisfeitos Corretos |
+| 9991 | Alarmes Falsos |
+| 670  | Crises Perdidas |
+  3315 | Clientes Detratores Salvos |
+
 
 **O Retorno Financeiro (ROI):** 
 O modelo mostrou sensibilidade e permitiu interceptar **3.315 clientes insatisfeitos antes mesmo de eles receberem o produto**. Para uma estratégia de CRM baseada em canais automatizados de baixíssimo custo marginal (como réguas de e-mail marketing prioritárias, notificações push customizadas ou automações de WhatsApp disparadas via API), o custo de enviar os 13.306 alertas totais é insignificante. O projeto se paga integralmente ao converter potenciais reclamações públicas e cancelamentos em um canal direto de acolhimento e suporte preventivo, blindando a reputação da plataforma.
